@@ -19,8 +19,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     
     public void limparCampos(){
-        
     }
+    
+    
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.

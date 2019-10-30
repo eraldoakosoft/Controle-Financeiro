@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -73,6 +72,7 @@ public class ProdutoDAO {
                 produto.setFkNota(rs.getInt("fk_nota"));
                 try{
                     produto.setDataCompra(rs.getDate("nota.data_compra"));
+                    produto.setFormaPaga(rs.getString("nota.forma_pagamento"));
                 }catch(SQLException ex){
                     
                 }

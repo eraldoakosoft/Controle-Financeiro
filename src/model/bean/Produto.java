@@ -20,6 +20,17 @@ public class Produto {
     private int fkNota;
     private int idProduto;
     private Date dataCompra;
+    private String formaPaga;
+
+    public String getFormaPaga() {
+        return formaPaga;
+    }
+
+    public void setFormaPaga(String formaPaga) {
+        this.formaPaga = formaPaga;
+    }
+    
+    
 
     public Date getDataCompra() {
         return dataCompra;

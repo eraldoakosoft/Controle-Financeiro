@@ -19,7 +19,10 @@ import model.dao.ProdutoDAO;
  */
 public class TelaRelatorio extends javax.swing.JInternalFrame {
     
-    String sql = "SELECT * FROM produto INNER JOIN nota ON (produto.fk_nota = nota.id_nota)";
+    String sql = "SELECT * FROM produto "
+            + "INNER JOIN nota "
+            + "ON (produto.fk_nota = nota.id_nota) "
+            + "WHERE data_compra BETWEEN '2019-10-01' AND '2019-10-31'";
 
     /**
      * Creates new form TelaRelatorio
@@ -50,7 +53,8 @@ public class TelaRelatorio extends javax.swing.JInternalFrame {
                 prod.getTotal(),
                 prod.getFinalidade(),
                 prod.getFkNota(),
-                prod.getDataCompra()
+                prod.getDataCompra(),
+                prod.getFormaPaga()
             });
             subtotal = prod.getTotal() + subtotal;
         }
@@ -86,6 +90,11 @@ public class TelaRelatorio extends javax.swing.JInternalFrame {
                     + "INNER JOIN nota "
                     + "ON (produto.fk_nota = nota.id_nota) "
                     + "WHERE produto.finalidade = '"+cbPorFinalidade.getSelectedItem().toString()+"'";
+        }else if(rbPagamento.isSelected()){
+            sql = "SELECT * FROM produto "
+                    + "INNER JOIN nota "
+                    + "ON (produto.fk_nota = nota.id_nota) "
+                    + "WHERE nota.forma_pagamento = '"+cbPagamento.getSelectedItem().toString()+"'"; 
         }
         
         return sql;
@@ -135,6 +144,9 @@ public class TelaRelatorio extends javax.swing.JInternalFrame {
         rbPorProduto = new javax.swing.JRadioButton();
         rbPorData = new javax.swing.JRadioButton();
         rbPorFinalidade = new javax.swing.JRadioButton();
+        jLabel6 = new javax.swing.JLabel();
+        cbPagamento = new javax.swing.JComboBox<>();
+        rbPagamento = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtSub = new javax.swing.JLabel();
@@ -148,7 +160,7 @@ public class TelaRelatorio extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Descrição", "Quantidade", "Valor Unidade", "Valor Total", "Finalidade", "ID Nota", "Data Compra"
+                "Descrição", "Quantidade", "Valor Unidade", "Valor Total", "Finalidade", "ID Nota", "Data Compra", "Forma de Pagamento"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -189,29 +201,40 @@ public class TelaRelatorio extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(rbPorFinalidade);
 
+        jLabel6.setText("Pesquisar por Forma de Pagamento");
+
+        cbPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crédito Itaú", "Crédito NuBank", "Débito", "Dinherio", "Convênio" }));
+
+        buttonGroup1.add(rbPagamento);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(cbPorFinalidade, 0, 198, Short.MAX_VALUE)
-                    .addComponent(txtPorProduto)
-                    .addComponent(txtPorNota)
-                    .addComponent(jButton1)
-                    .addComponent(txtPorData))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbPorData)
-                    .addComponent(rbPorProduto)
-                    .addComponent(rbPorFinalidade)
-                    .addComponent(rbPorNota))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cbPagamento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbPorFinalidade, javax.swing.GroupLayout.Alignment.LEADING, 0, 198, Short.MAX_VALUE)
+                            .addComponent(txtPorProduto, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPorNota, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPorData, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbPorData)
+                            .addComponent(rbPorProduto)
+                            .addComponent(rbPorFinalidade)
+                            .addComponent(rbPorNota)
+                            .addComponent(rbPagamento))))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,9 +242,9 @@ public class TelaRelatorio extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPorNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbPorNota))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbPorNota)
+                    .addComponent(txtPorNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -237,10 +260,16 @@ public class TelaRelatorio extends javax.swing.JInternalFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbPorFinalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbPorFinalidade))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbPorFinalidade)
+                    .addComponent(cbPorFinalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbPagamento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -293,12 +322,13 @@ public class TelaRelatorio extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -331,6 +361,7 @@ public class TelaRelatorio extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbPagamento;
     private javax.swing.JComboBox<String> cbPorFinalidade;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -338,11 +369,13 @@ public class TelaRelatorio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JRadioButton rbPagamento;
     private javax.swing.JRadioButton rbPorData;
     private javax.swing.JRadioButton rbPorFinalidade;
     private javax.swing.JRadioButton rbPorNota;

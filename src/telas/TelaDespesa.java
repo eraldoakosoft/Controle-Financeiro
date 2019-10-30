@@ -251,7 +251,7 @@ public class TelaDespesa extends javax.swing.JInternalFrame {
         txtValorTotal.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         cbFinalidade.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        cbFinalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alimentação", "Limpeza", "Higiene", "Lazer", "Aluguel", "Luz", "Internet", "Água", "Moto", "Outros" }));
+        cbFinalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alimentação", "Limpeza", "Higiene", "Lazer", "Aluguel", "Luz", "Internet", "Água", "Moto", "Casa", "Outros" }));
 
         btnAdicionar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnAdicionar.setText("Adicionar");
@@ -295,7 +295,7 @@ public class TelaDespesa extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5)
                             .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,7 +341,7 @@ public class TelaDespesa extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,7 +372,12 @@ public class TelaDespesa extends javax.swing.JInternalFrame {
         jLabel10.setText("Forma de Pagamento");
 
         txtFormaPagamento.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        txtFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crédito", "Débito", "Dinherio", "Convênio" }));
+        txtFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crédito Itaú", "Crédito NuBank", "Débito", "Dinherio", "Convênio" }));
+        txtFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFormaPagamentoActionPerformed(evt);
+            }
+        });
 
         btnFinalizar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnFinalizar.setText("Finalizar");
@@ -387,7 +392,7 @@ public class TelaDespesa extends javax.swing.JInternalFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtDataCompra))
@@ -396,8 +401,7 @@ public class TelaDespesa extends javax.swing.JInternalFrame {
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtFormaPagamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(btnFinalizar)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(btnFinalizar))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,10 +426,11 @@ public class TelaDespesa extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,7 +445,7 @@ public class TelaDespesa extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 1186, 608);
+        setBounds(0, 0, 1031, 608);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
@@ -465,6 +470,10 @@ public class TelaDespesa extends javax.swing.JInternalFrame {
     private void txtDataCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataCompraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataCompraActionPerformed
+
+    private void txtFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFormaPagamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFormaPagamentoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
